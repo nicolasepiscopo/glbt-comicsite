@@ -1,0 +1,39 @@
+@import url(https://fonts.googleapis.com/css?family=Bangers);
+@media(min-width:700px){
+	.brand-logo{
+		margin-left:1em;
+	}
+}
+.brand-logo, h1, h2, h3, h4, h5{
+	font-family: 'Bangers', cursive;
+}
+.slider, .slides, .slides li{
+	max-height:300px;
+}
+.text-center{
+	text-align: center;
+} 
+.padding-5{
+	padding:5px;
+}
+.margin-top-5{
+	margin-top:15px;
+}
+h5{
+	color:#888;
+}
+.chip{
+	margin:5px;
+	cursor:pointer;
+}
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+main {
+	flex: 1 0 auto;
+}
+.breadcrumb-small a{
+	font-size:1em;
+}

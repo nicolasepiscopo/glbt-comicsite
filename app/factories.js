@@ -1,39 +1,40 @@
-angular.module('ComicStore').factory('User', function(){
+app
+.factory('UserFactory', function(){
 	return new LocalRepository('User');
-});
-angular.module('ComicStore').factory('Comic', function(){
+})
+.factory('ComicFactory', function(){
 	return new LocalRepository('Comic');
-});
-angular.module('ComicStore').factory('Author', function(){
+})
+.factory('AuthorFactory', function(){
 	return new LocalRepository('Author');
-});
-angular.module('ComicStore').factory('Character', function(){
+})
+.factory('CharacterFactory', function(){
 	return new LocalRepository('Character');
-});
-angular.module('ComicStore').factory('Genre', function(){
+})
+.factory('GenreFactory', function(){
 	return new LocalRepository('Genre');
-});
-angular.module('ComicStore').factory('Edition', function(){
+})
+.factory('EditionFactory', function(){
 	return new LocalRepository('Edition');
-});
-angular.module('ComicStore').factory('Qualification', function(){
+})
+.factory('QualificationFactory', function(){
 	return new LocalRepository('Qualification');
-});
-angular.module('ComicStore').factory('Recommendation', function(){
+})
+.factory('RecommendationFactory', function(){
 	return new LocalRepository('Recommendation');
-});
-angular.module('ComicStore').factory('PhysicalCopy', function(){
+})
+.factory('PhysicalCopyFactory', function(){
 	return new LocalRepository('PhysicalCopy');
-});
-angular.module('ComicStore').factory('Loan', function(){
+})
+.factory('LoanFactory', function(){
 	return new LocalRepository('Loan');
-});
-angular.module('ComicStore').factory('New', function(){
+})
+.factory('NewsFactory', function(){
 	return new LocalRepository('New');
-});
-angular.module('ComicStore').factory('Video', function(){
+})
+.factory('VideoFactory', function(){
 	return new LocalRepository('Video');
-});
-angular.module('ComicStore').factory('Game', function(){
+})
+.factory('GameFactory', function(){
 	return new LocalRepository('Game');
 });

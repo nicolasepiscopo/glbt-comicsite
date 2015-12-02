@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="ComicStore">
 	<head>
 		<!--Import Google Icon Font-->
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,22 +15,37 @@
 		<!--Let browser know website is optimized for mobile-->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<meta charset="UTF-8">
+		<title>Comics Site</title>
 	</head>
 
-	<body ng-app="ComicStore">
+	<body ng-controller="BaseController">
 		<header>
 			<div class="navbar-fixed">
 				<nav class="default-primary-color">
 					<div class="nav-wrapper">
 						<a href="#!" class="brand-logo">Comics Site</a>
 						<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-						<ul class="right hide-on-med-and-down">
+						<!-- Guest links -->
+						<ul class="right hide-on-med-and-down" ng-hide="isAuthenticated">
 							<li><a href="#!/sign-up">Sign Up</a></li>
-							<li><a href="#!/sign-in">Sign In</a></li>
+							<li><a data-target="SignInModal" class="modal-trigger">Sign In</a></li>
 						</ul>
-						<ul class="side-nav" id="mobile-demo">
+						<ul class="side-nav" id="mobile-demo" ng-hide="isAuthenticated">
 							<li><a href="#!/sign-up">Sign Up</a></li>
-							<li><a href="#!/sign-in">Sign In</a></li>
+							<li><a data-target="SignInModal" class="modal-trigger">Sign In</a></li>
+						</ul>
+						<!-- User links -->
+						<ul class="right hide-on-med-and-down" ng-hide="!isAuthenticated" ng-controller="SecurityController">
+							<li><a href="#!/sign-up">My Account</a></li>
+							<li><a href="#!/sign-up">Loans</a></li>
+							<li><a href="#!/administration" ng-hide="!isAdmin">Administration</a></li>
+							<li><a href="#!/" ng-click="logout()">Sign Out</a></li>
+						</ul>
+						<ul class="side-nav" id="mobile-demo" ng-hide="!isAuthenticated" ng-controller="SecurityController">
+							<li><a href="#!/sign-up">My Account</a></li>
+							<li><a href="#!/sign-up">Loans</a></li>
+							<li><a href="#!/administration" ng-hide="!isAdmin">Administration</a></li>
+							<li><a href="#!/" ng-click="logout()">Sign Out</a></li>
 						</ul>
 					</div>
 				</nav>
@@ -65,7 +80,7 @@
 			        <div class="z-depth-1 text-center padding-5">
 			        	<a href="!#/advanced-search"><small>Advanced Search</small></a>
 			        </div>
-			        <div class="hide-on-down">
+			        <div class="hide-on-small-only">
 				        <div class="z-depth-1 text-center padding-5 margin-top-5">
 				        	<h5>Top Rated</h5>
 				        	<div class="chip">
@@ -157,6 +172,18 @@
 				</div>
 			</div>
         </footer>
+
+        <!-- Modal Structure -->
+		<div id="SignInModal" class="modal bottom-sheet" ng-hide="authUser">
+			<div class="modal-content">
+				<div ng-include="'app/partials/sign-in.html'">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+			</div>
+		</div>
+
         <script type="text/javascript" src="vendor/local-repository/local-repository.js"></script>
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -165,5 +192,9 @@
 		<script type="text/javascript" src="vendor/angular/angular.min.js"></script>
 		<script type="text/javascript" src="vendor/angular/angular-route.min.js"></script>
 		<script type="text/javascript" src="app/main.js"></script>
+		<script type="text/javascript" src="app/services.js"></script>
+		<script type="text/javascript" src="app/controllers.js"></script>
+		<script type="text/javascript" src="app/factories.js"></script>
+		<script type="text/javascript" src="app/validators.js"></script>
 	</body>
 </html>

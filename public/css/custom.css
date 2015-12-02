@@ -35,5 +35,11 @@ main {
 	flex: 1 0 auto;
 }
 .breadcrumb-small a{
-	font-size:1em;
+	font-size: 1em;
+}
+a{
+	cursor: pointer;
+}
+#SignInModal{
+	max-height: 100%;
 }

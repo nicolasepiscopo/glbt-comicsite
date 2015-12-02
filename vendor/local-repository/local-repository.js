@@ -3,7 +3,7 @@ var LocalRepository = (function(name){
 	var name = name;
 	
 	if(!localStorage.getItem(name)){
-		localStorage.setItem(name, JSON.stringify(physicalCollection));
+		localStorage.setItem(name, JSON.stringify([]));
 		localStorage.setItem(name+"_nextId", 0);
 	}
 	var nextId = JSON.parse(localStorage.getItem(name+"_nextId"));

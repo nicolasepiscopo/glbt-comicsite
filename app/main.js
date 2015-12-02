@@ -1,12 +1,12 @@
-angular.module('ComicStore', ['ngRoute']);
+var app = angular.module('ComicStore', ['ngRoute']);
 
 //Set hashbang
-angular.module('ComicStore').config(function($locationProvider){
+app.config(function($locationProvider){
 	$locationProvider.hashPrefix("!");
 });
 
 //Routing
-angular.module('ComicStore').config(function($routeProvider){
+app.config(function($routeProvider){
 	$routeProvider
 	.when('/',{
 		controller  : 'MainController',

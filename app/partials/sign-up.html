@@ -1,0 +1,47 @@
+<nav class="default-primary-color breadcrumb-small">
+    <div class="nav-wrapper margin-top-5">
+    	<div class="col s12">
+	        <a href="/" class="breadcrumb">Home</a>
+	        <a class="breadcrumb active">Sign Up</a>
+    	</div>
+    </div>
+</nav>
+<div class="row">
+	<form class="col s12" ng-submit="register()">
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="username" type="text" class="validate" ng-model="user.username" />
+				<label for="username">Username</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="email" type="email" class="validate" ng-model="user.email" />
+				<label for="email">Email</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="password" type="password" class="validate" ng-model="user.password" />
+				<label for="password">Password</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="cpassword" type="password" class="validate" />
+				<label for="cpassword">Confirm Password</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="tos" type="checkbox" class="validate" />
+				<label for="tos">I agree Terms of Service</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="email" type="submit" class="waves-effect waves-light btn" value="Sign Up" />
+			</div>
+		</div>
+	</form>
+</div>

@@ -19,7 +19,7 @@
 .margin-top-5{
 	margin-top:15px;
 }
-h5{
+h5,h1 small{
 	color:#888;
 }
 .chip{

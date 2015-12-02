@@ -1,0 +1,78 @@
+<div ng-controller="AdministrationUsersController">
+	<a class="btn modal-trigger btn-floating red btn-small pull-right" ng-click="cleanForm(); openModal('createEditUserModal')"><i class="material-icons">add</i></a>
+	
+	<h4>Users list</h4>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Created On</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="user in users">
+				<td ng-bind="user.id"></td>
+				<td ng-bind="user.username"></td>
+				<td ng-bind="user.email"></td>
+				<td ng-bind="user.createdOn"></td>
+				<td>
+					<a class="btn-floating green btn-small" ng-click="edit(user.id); openModal('createEditUserModal');">
+						<i class="material-icons">mode_edit</i>
+					</a>
+				</td>
+				<td>
+					<a class="btn-floating red btn-small" ng-click="remove(user.id)">
+						<i class="material-icons">delete</i>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div id="createEditUserModal" class="modal">
+		<div class="modal-content">
+			<h4>Create / Edit</h4>
+
+			<form class="col s12" ng-submit="update()">
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="username" type="text" class="validate" ng-model="user.username" pattern="[a-z0-9]{5,10}" required title="5 to 10 alphanumeric characters" />
+						<label for="username" class="active">Username</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="email" type="email" class="validate" ng-model="user.email" />
+						<label for="email" class="active">Email</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="password" type="password" class="validate" ng-model="user.password" pattern="[a-zA-Z0-9]{7,}" required title="7 alphanumeric characters minimum" />
+						<label for="password" class="active">Password</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input type="submit" class="waves-effect waves-light btn" value="Save" />
+					</div>
+				</div>
+				<input type="hidden" ng-model="user.id">
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('ul.tabs').tabs();
+	});
+</script>

@@ -1,0 +1,77 @@
+<div ng-controller="AdministrationComicsController">
+	<a class="btn modal-trigger btn-floating red btn-small pull-right" ng-click="cleanForm(); openModal('createEditComicModal')"><i class="material-icons">add</i></a>
+
+	<h4>Comics list</h4>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Year</th>
+				<th>Created On</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="comic in comics">
+				<td ng-bind="comic.id"></td>
+				<td ng-bind="comic.title"></td>
+				<td ng-bind="comic.description"></td>
+				<td ng-bind="comic.year"></td>
+				<td ng-bind="comic.createdOn"></td>
+				<td>
+					<a class="btn-floating green btn-small" ng-click="edit(comic.id); openModal('createEditComicModal');">
+						<i class="material-icons">mode_edit</i>
+					</a>
+				</td>
+				<td>
+					<a class="btn-floating red btn-small" ng-click="remove(comic.id)">
+						<i class="material-icons">delete</i>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div id="createEditComicModal" class="modal">
+		<div class="modal-content">
+			<h4>Create / Edit</h4>
+
+			<form class="col s12" ng-submit="update()">
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="title" required type="text" class="validate" ng-model="comic.title"/>
+						<label for="title" class="active">Title</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="description" type="text" required class="validate" ng-model="comic.description" />
+						<label for="description" class="active">Description</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="year" type="number" min="1800" max="2015" required class="validate" ng-model="comic.year" />
+						<label for="year" class="active">Year</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input type="submit" class="waves-effect waves-light btn" value="Save" />
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('ul.tabs').tabs();
+	});
+</script>

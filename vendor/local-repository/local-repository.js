@@ -17,6 +17,7 @@ var LocalRepository = (function(name){
 		add : function(element){
 			element.id = ++nextId;
 			element.createdOn = new Date();
+			element.modifiedOn = new Date();
 			physicalCollection.push(element);
 			localStorage.setItem(name, JSON.stringify(physicalCollection));
 			localStorage.setItem(name+"_nextId", nextId);
@@ -36,6 +37,7 @@ var LocalRepository = (function(name){
 				return element.id==updatedElement.id;
 			});
 			if(objectIndex>0){
+				updatedElement.modifiedOn = new Date();
 				physicalCollection[objectIndex] = updatedElement;
 				localStorage.setItem(name, JSON.stringify(physicalCollection));
 				localStorage.setItem(name+"_nextId", nextId);

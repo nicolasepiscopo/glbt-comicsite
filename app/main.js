@@ -16,6 +16,9 @@ app.config(function($routeProvider){
 		controller  : 'SignUpController',
 		templateUrl : 'app/partials/sign-up.html'
 	})
+	.when('/administration',{
+		templateUrl : 'app/partials/administration.html'
+	})
 	.when('/404',{
 		templateUrl : 'app/partials/404.html'
 	})

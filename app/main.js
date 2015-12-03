@@ -19,6 +19,10 @@ app.config(function($routeProvider){
 	.when('/administration',{
 		templateUrl : 'app/partials/administration.html'
 	})
+	.when('/comic/:id',{
+		controller : 'ComicController',
+		templateUrl : 'app/partials/comic.html'
+	})
 	.when('/404',{
 		templateUrl : 'app/partials/404.html'
 	})

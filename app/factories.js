@@ -37,4 +37,7 @@ app
 })
 .factory('GameFactory', function(){
 	return new LocalRepository('Game');
+})
+.factory('VisitFactory', function(){
+	return new LocalRepository('Visit');
 });

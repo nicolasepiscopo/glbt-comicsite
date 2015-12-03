@@ -15,7 +15,7 @@
 		<tbody>
 			<tr ng-repeat="comic in comics track by comic.id">
 				<td ng-bind="comic.title"></td>
-				<td ng-bind="getGenre(comic.genre)"></td>
+				<td ng-bind="comic.genre.title"></td>
 				<td ng-bind="comic.year"></td>
 				<td ng-bind="comic.createdOn"></td>
 				<td>
@@ -41,6 +41,21 @@
 					<div class="input-field col s12">
 						<input id="title" required type="text" class="validate" ng-model="comic.title"/>
 						<label for="title" class="active">Title</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s9">
+						<input id="image" required type="url" class="validate" ng-model="comic.image"/>
+						<label for="image" class="active">Image</label>
+					</div>
+					<div class="input-field col s3">
+						<img ng-hide="!comic.image" ng-src="{{comic.image}}" style="width:100%;">
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="author" required type="text" class="validate" ng-model="comic.author"/>
+						<label for="author" class="active">Author</label>
 					</div>
 				</div>
 				<div class="row">

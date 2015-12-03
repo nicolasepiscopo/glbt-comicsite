@@ -155,4 +155,113 @@ app
 		ToastService.show("Genre removed!");
 		$scope.genres = GenreFactory.find();
 	}
+})
+.controller('SidebarController', function($scope, ComicFactory){
+	$scope.topRated = ComicFactory.find().sort(function(oneComic, anotherComic){
+		if(oneComic.rating>anotherComic.rating)
+			return -1;
+		else if(oneComic.rating<anotherComic.rating)
+			return 1;
+		else
+			return 0;
+	}).slice(0,4);
+	$scope.topSearches = ComicFactory.find().sort(function(oneComic, anotherComic){
+		if(oneComic.visits>anotherComic.visits)
+			return -1;
+		else if(oneComic.visits<anotherComic.visits)
+			return 1;
+		else
+			return 0;
+	}).slice(0,4);
+})
+.controller('ComicController', function($scope, $routeParams, SessionService, VisitFactory, ComicFactory, GenreFactory){
+	var id = $routeParams.id;
+
+	$scope.comic = ComicFactory.find(function(comic){
+		return comic.id==id;
+	});
+
+	/* Add a visit if user is authenticated */
+	if(SessionService.get('user')){
+		var visited = VisitFactory.find(function(v){
+			return (v.user==SessionService.get('user').id)&&(v.comic==id);
+		});
+		if(!visited){
+			VisitFactory.add({
+				comic : id,
+				user : SessionService.get('user').id
+			});
+			if($scope.comic.visits)
+				$scope.comic.visits++;
+			else
+				$scope.comic.visits = 1;
+			ComicFactory.update($scope.comic);
+		}
+	}
+
+	$scope.getGenre = function(id){
+		return GenreFactory.find(function(genre){
+			return (genre.id==id);
+		});
+	};
+})
+.controller('RatingController', function($scope, QualificationFactory, ComicFactory, SessionService){
+	var id = $scope.$parent.comic.id;
+	/* User rating shown at start */
+	var rating = QualificationFactory.find(function(q){
+		return (q.user == SessionService.get('user').id)&&(q.comic==id);
+	});
+	if(rating)
+		$scope.rating = rating.stars;	
+
+	/* Calculate global rating for one comic */
+	$scope.calculateRating = function(){		
+		var quantity = 0; 
+		var total = 0;
+
+		QualificationFactory.find().forEach(function(q){
+			if(q.comic==id){
+				quantity++;
+				total += q.stars;
+			}
+		});
+
+		$scope.communityRating = Math.ceil(total/quantity);
+
+		/* Update rating */
+		if($scope.$parent.comic.rating != $scope.communityRating){
+			$scope.$parent.comic.rating = $scope.communityRating;
+			ComicFactory.update($scope.$parent.comic);
+		}
+
+		$scope.stars = [
+			{ name : "1 Star", value : 1 },
+			{ name : "2 Stars", value : 2 },
+			{ name : "3 Stars", value : 3 },
+			{ name : "4 Stars", value : 4 },
+			{ name : "5 Stars", value : 5 },
+		];
+	};
+
+	/* Rate a comic */
+	$scope.rate = function(){
+		var previousRatingByUser = QualificationFactory.find(function(q){
+			return (q.user == SessionService.get('user').id)&&(q.comic==id);
+		});
+		if(previousRatingByUser){
+			//modify qualification
+			previousRatingByUser.stars = $scope.rating;
+			QualificationFactory.update(previousRatingByUser);
+		}else{
+			//create qualification
+			QualificationFactory.add({
+				comic : id,
+				user : SessionService.get('user').id,
+				stars : $scope.rating
+			});
+		}
+	};
+
+	/* Runs at start */
+	$scope.calculateRating();
 });

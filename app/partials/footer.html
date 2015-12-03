@@ -3,9 +3,31 @@
 		<div class="col m6 s12">
 			<h5 class="white-text">Sitemap</h5>
 			<ul>
-				<li><a class="grey-text text-lighten-3" href="#!">Sign Up</a></li>
-				<li><a class="grey-text text-lighten-3" href="#!">Sign In</a></li>
-				<li><a class="grey-text text-lighten-3" href="#!">Disclaimer</a></li>
+				<li>
+					<a class="grey-text text-lighten-3" href="#!/comics">
+						Comics
+					</a>
+				</li>
+				<li ng-if="isAuthenticated">
+					<a class="grey-text text-lighten-3" href="#!/my-account">
+						My Account
+					</a>
+				</li>
+				<li ng-if="isAuthenticated">
+					<a class="grey-text text-lighten-3" href="#!/loans">
+						Loans
+					</a>
+				</li>
+				<li ng-if="isAdmin">
+					<a class="grey-text text-lighten-3" href="#!/administration">
+						Administration
+					</a>
+				</li>
+				<li>
+					<a class="grey-text text-lighten-3" href="#!/disclaimer">
+						Disclaimer
+					</a>
+				</li>
 			</ul>
 		</div>
 		<div class="col m4 offset-l2 s12">

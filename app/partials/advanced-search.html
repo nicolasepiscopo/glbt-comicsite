@@ -1,0 +1,59 @@
+<nav class="default-primary-color breadcrumb-small">
+    <div class="nav-wrapper margin-top-5">
+    	<div class="col s12">
+	        <a href="#!/" class="breadcrumb">Home</a>
+	        <a class="breadcrumb active">Advanced search</a>
+    	</div>
+    </div>
+</nav>
+<div class="row" ng-if="isAuthenticated">
+	<form class="col s12" onsubmit="return false">
+		<div class="row">
+			<div class="input-field col s12">
+				<input type="text" class="validate" required />
+				<label>Edition</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input type="text" class="validate" required />
+				<label>Name</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input type="text" class="validate" required />
+				<label>Collections</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input type="text" class="validate" required />
+				<label>Loans</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input type="text" class="validate" required />
+				<label>Recommended</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input type="text" class="validate" required />
+				<label>Author</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<a class="waves-effect waves-light btn" href="#!/comics">Search</a>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('ul.tabs').tabs();
+		$('select').material_select();
+	});
+</script>

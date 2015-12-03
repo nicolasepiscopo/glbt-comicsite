@@ -1,7 +1,7 @@
 <nav class="default-primary-color breadcrumb-small">
     <div class="nav-wrapper margin-top-5">
     	<div class="col s12">
-	        <a href="/" class="breadcrumb">Home</a>
+	        <a href="#!/" class="breadcrumb">Home</a>
 	        <a class="breadcrumb active">Sign Up</a>
     	</div>
     </div>
@@ -12,6 +12,15 @@
 			<div class="input-field col s12">
 				<input id="username" type="text" class="validate" ng-model="user.username" pattern="[a-z0-9]{5,10}" required title="5 to 10 alphanumeric characters" />
 				<label for="username">Username</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<select id="role" class="validate" ng-model="user.role"  required>
+					<option value="admin">Administrador</option>
+					<option value="user" selected>Usuario</option>
+				</select>
+				<label for="role">Role</label>
 			</div>
 		</div>
 		<div class="row">
@@ -45,3 +54,9 @@
 		</div>
 	</form>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('ul.tabs').tabs();
+		$('select').material_select();
+	});
+</script>

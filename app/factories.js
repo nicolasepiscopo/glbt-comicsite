@@ -5,29 +5,21 @@ app
 .factory('ComicFactory', function(){
 	return new LocalRepository('Comic');
 })
-.factory('AuthorFactory', function(){
-	return new LocalRepository('Author');
-})
-.factory('CharacterFactory', function(){
-	return new LocalRepository('Character');
-})
 .factory('GenreFactory', function(){
 	return new LocalRepository('Genre');
-})
-.factory('EditionFactory', function(){
-	return new LocalRepository('Edition');
 })
 .factory('QualificationFactory', function(){
 	return new LocalRepository('Qualification');
 })
-.factory('RecommendationFactory', function(){
-	return new LocalRepository('Recommendation');
+.factory('VisitFactory', function(){
+	return new LocalRepository('Visit');
 })
-.factory('PhysicalCopyFactory', function(){
-	return new LocalRepository('PhysicalCopy');
+.factory('CommentFactory', function(){
+	return new LocalRepository('Comment');
 })
-.factory('LoanFactory', function(){
-	return new LocalRepository('Loan');
+/*
+.factory('CharacterFactory', function(){
+	return new LocalRepository('Character');
 })
 .factory('NewsFactory', function(){
 	return new LocalRepository('New');
@@ -37,7 +29,4 @@ app
 })
 .factory('GameFactory', function(){
 	return new LocalRepository('Game');
-})
-.factory('VisitFactory', function(){
-	return new LocalRepository('Visit');
-});
+});*/

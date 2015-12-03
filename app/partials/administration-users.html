@@ -15,7 +15,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="user in users">
+			<tr ng-repeat="user in users track by user.id">
 				<td ng-bind="user.id"></td>
 				<td ng-bind="user.username"></td>
 				<td ng-bind="user.email"></td>
@@ -38,7 +38,7 @@
 		<div class="modal-content">
 			<h4>Create / Edit</h4>
 
-			<form class="col s12" ng-submit="update()">
+			<form class="col s12" ng-submit="save(user.id); closeModal('createEditUserModal')">
 				<div class="row">
 					<div class="input-field col s12">
 						<input id="username" type="text" class="validate" ng-model="user.username" pattern="[a-z0-9]{5,10}" required title="5 to 10 alphanumeric characters" />

@@ -5,7 +5,6 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>Title</th>
 				<th>Created On</th>
 				<th></th>
@@ -13,8 +12,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="genre in genres">
-				<td ng-bind="genre.id"></td>
+			<tr ng-repeat="genre in genres track by genre.id">
 				<td ng-bind="genre.title"></td>
 				<td ng-bind="genre.createdOn"></td>
 				<td>
@@ -35,7 +33,7 @@
 		<div class="modal-content">
 			<h4>Create / Edit</h4>
 
-			<form class="col s12" ng-submit="update()">
+			<form class="col s12" ng-submit="save(genre.id); closeModal('createEditGenreModal')">
 				<div class="row">
 					<div class="input-field col s12">
 						<input id="title" required type="text" class="validate" ng-model="genre.title"/>

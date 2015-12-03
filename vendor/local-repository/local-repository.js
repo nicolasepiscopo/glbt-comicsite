@@ -36,7 +36,7 @@ var LocalRepository = (function(name){
 			var objectIndex = physicalCollection.findIndex(function(element){
 				return element.id==updatedElement.id;
 			});
-			if(objectIndex>0){
+			if(objectIndex>-1){
 				updatedElement.modifiedOn = new Date();
 				physicalCollection[objectIndex] = updatedElement;
 				localStorage.setItem(name, JSON.stringify(physicalCollection));

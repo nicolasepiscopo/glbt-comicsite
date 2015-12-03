@@ -5,7 +5,10 @@ app
 	$scope.isAdmin = ($scope.authUser.username=="admin");
 	$scope.openModal = function(modalId){
 		$('#'+modalId).openModal();
-	}
+	};
+	$scope.closeModal = function(modalId){
+		$('#'+modalId).closeModal();
+	};
 })
 .controller('MainController', function($scope){
 
@@ -66,12 +69,14 @@ app
 			//Updating user
 			user.id = id;
 			UserFactory.update(user);
-			ToastService.show("User created!");
+			ToastService.show("User updated!");
 		}else{
 			//Creating user
-			UserFactory.update(user);
-			ToastService.show("User updated!");
+			UserFactory.add(user);
+			ToastService.show("User created!");
 		}
+		$scope.users = UserFactory.find();
+		$scope.user = {};
 	}
 	$scope.remove = function(id){
 		//Remove user
@@ -80,8 +85,14 @@ app
 		$scope.users = UserFactory.find();
 	}
 })
-.controller('AdministrationComicsController', function($scope, ComicFactory, ToastService){
+.controller('AdministrationComicsController', function($scope, ComicFactory, GenreFactory, ToastService){
 	$scope.comics = ComicFactory.find();
+	$scope.genres = GenreFactory.find();
+	$scope.getGenre = function(id){
+		return GenreFactory.find(function(genre){
+			return (genre.id==id);
+		});
+	};
 	$scope.cleanForm = function(){
 		$scope.comic = {};
 	}; 
@@ -96,10 +107,14 @@ app
 			//Updating comic
 			comic.id = id;
 			ComicFactory.update(comic);
+			ToastService.show("Comic created!");
 		}else{
 			//Creating comic
-			ComicFactory.update(comic);
+			ComicFactory.add(comic);
+			ToastService.show("Comic updated!");
 		}
+		$scope.comics = ComicFactory.find();
+		$scope.comic = {};
 	}
 	$scope.remove = function(id){
 		//Remove comic
@@ -124,11 +139,15 @@ app
 			//Updating genre
 			genre.id = id;
 			GenreFactory.update(genre);
+			ToastService.show("Genre updated!");
 		}else{
 			//Creating genre
-			GenreFactory.update(genre);
+			GenreFactory.add(genre);
+			ToastService.show("Genre created!");
 		}
-		$scope.user = {};
+		ToastService.show("Changes saved!");
+		$scope.genres = GenreFactory.find();
+		$scope.genre = {};
 	}
 	$scope.remove = function(id){
 		//Remove genre

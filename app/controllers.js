@@ -2,7 +2,6 @@ app
 .controller('BaseController', function($scope, SessionService){
 	$scope.authUser = (SessionService.get('user'))? SessionService.get('user') : false;
 	$scope.isAuthenticated = (SessionService.get('user')!=false);
-	console.log($scope.isAuthenticated);
 	$scope.isAdmin = ($scope.authUser.role=="admin");
 	$scope.openModal = function(modalId){
 		$('#'+modalId).openModal();
@@ -38,21 +37,25 @@ app
 		}
 	}
 })
-.controller('SecurityController', function($scope, $window, UserFactory, ToastService, SignInValidator,SessionService){
+.controller('SecurityController', function($scope, $location, $window, UserFactory, ToastService, SignInValidator,SessionService){
 	if(!SessionService.get('user')){
 		$scope.login = function(){
 			var validation = SignInValidator.runValidation($scope);
 			if(validation.isValid){
 				var user = UserFactory.find(function(user){
-					return user.username == $scope.user.username;
+					return (user.username == $scope.user.username)&&(user.password == $scope.user.password);
 				});
 				//Initialize session
 				SessionService.set('user', user);
 				$scope.$parent.authUser = user;
+				$scope.$parent.isAuthenticated = true;
+				$scope.$parent.isAdmin = (user.role=="admin");
 				validation.messages.forEach(function(msg){
 					ToastService.show(msg);
 				});
-				$window.location.href = "/";
+				$('.modal').closeModal();
+				$location.path("/");
+				$window.location.reload();
 			}
 			validation.messages.forEach(function(msg){
 				ToastService.show(msg);
@@ -63,8 +66,11 @@ app
 		$scope.logout = function(){
 			SessionService.set('user', false);
 			$scope.$parent.authUser = false;
+			$scope.$parent.isAuthenticated = false;
+			$scope.$parent.isAdmin = false;	
 			ToastService.show("See you later!");
-			$window.location.href = "/";
+			$location.path("/");
+			$window.location.reload();
 		}
 	}
 })

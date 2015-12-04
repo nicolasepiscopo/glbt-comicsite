@@ -40,13 +40,13 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<input id="title" required type="text" class="validate" ng-model="comic.title"/>
-						<label for="title" class="active">Title</label>
+						<label for="title" ng-class="{'active' : comic.id}">Title</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s9">
 						<input id="image" required type="url" class="validate" ng-model="comic.image"/>
-						<label for="image" class="active">Image</label>
+						<label for="image" ng-class="{'active' : comic.id}">Image</label>
 					</div>
 					<div class="input-field col s3">
 						<img ng-hide="!comic.image" ng-src="{{comic.image}}" style="width:100%;">
@@ -55,13 +55,13 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<input id="author" required type="text" class="validate" ng-model="comic.author"/>
-						<label for="author" class="active">Author</label>
+						<label for="author" ng-class="{'active' : comic.id}">Author</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
 						<textarea id="description" required class="validate" ng-model="comic.description"></textarea>
-						<label for="description" class="active">Description</label>
+						<label for="description" ng-class="{'active' : comic.id}">Description</label>
 					</div>
 				</div>
 				<div class="row">
@@ -74,7 +74,7 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<input id="year" type="number" min="1800" max="2015" required class="validate" ng-model="comic.year" />
-						<label for="year" class="active">Year</label>
+						<label for="year" ng-class="{'active' : comic.id}">Year</label>
 					</div>
 				</div>
 				<!-- Starts video section -->

@@ -14,13 +14,13 @@
 			</ul>
 			<!-- User links -->
 			<ul class="right hide-on-med-and-down" ng-hide="!isAuthenticated" ng-controller="SecurityController">
-				<li><a href="#!/my-account">My Account</a></li>
+				<li><a href="#!/my-account">My Account ({{authUser.username}})</a></li>
 				<li><a href="#!/">Loans</a></li>
 				<li><a href="#!/administration" ng-hide="!isAdmin">Administration</a></li>
 				<li><a href="#!/" ng-click="logout()">Sign Out</a></li>
 			</ul>
 			<ul class="side-nav" id="mobile-demo" ng-hide="!isAuthenticated" ng-controller="SecurityController">
-				<li><a href="#!/my-account">My Account</a></li>
+				<li><a href="#!/my-account">My Account ({{authUser.username}})</a></li>
 				<li><a href="#!/">Loans</a></li>
 				<li><a href="#!/administration" ng-hide="!isAdmin">Administration</a></li>
 				<li><a href="#!/" ng-click="logout()">Sign Out</a></li>

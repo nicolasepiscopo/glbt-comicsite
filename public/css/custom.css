@@ -50,3 +50,6 @@ span.badge.filled{
     background-color: #26a69a;
     border-radius: 2px;
 }
+.slider h3, .slider h5{
+	text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;
+}

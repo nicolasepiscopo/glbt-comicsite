@@ -37,7 +37,7 @@ app
 		}
 	}
 })
-.controller('SecurityController', function($scope, $location, $window, UserFactory, ToastService, SignInValidator,SessionService){
+.controller('SecurityController', function($scope, $window, UserFactory, ToastService, SignInValidator,SessionService){
 	if(!SessionService.get('user')){
 		$scope.login = function(){
 			var validation = SignInValidator.runValidation($scope);
@@ -54,8 +54,7 @@ app
 					ToastService.show(msg);
 				});
 				$('.modal').closeModal();
-				$location.path("/");
-				$window.location.reload();
+				$window.location.href="/";
 			}
 			validation.messages.forEach(function(msg){
 				ToastService.show(msg);
@@ -69,8 +68,7 @@ app
 			$scope.$parent.isAuthenticated = false;
 			$scope.$parent.isAdmin = false;	
 			ToastService.show("See you later!");
-			$location.path("/");
-			$window.location.reload();
+			$window.location.href="/";
 		}
 	}
 })

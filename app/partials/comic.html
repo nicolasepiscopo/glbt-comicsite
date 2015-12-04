@@ -1,16 +1,4 @@
-<nav class="default-primary-color breadcrumb-small">
-    <div class="nav-wrapper margin-top-5">
-    	<div class="col s12">
-	        <a href="#!/" class="breadcrumb">Home</a>
-	        <a href="#!/comics" class="breadcrumb">Comics</a>
-	        <a class="breadcrumb active" ng-bind="comic.title"></a>
-    	</div>
-    </div>
-</nav>
-
-
-
-
+<breadcrumb ng-links='[{"url":"#!/", "title":"Home"}, {"url":"#!/comics", "title":"Comics"}, {"url":false, "title": "{{comic.title}}" }]'></breadcrumb>
 
 <div class="row">
 	<img ng-src="{{comic.image}}" class="col s12 m4 margin-top-5">

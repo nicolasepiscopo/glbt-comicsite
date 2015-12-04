@@ -1,11 +1,4 @@
-<nav class="default-primary-color breadcrumb-small">
-    <div class="nav-wrapper margin-top-5">
-    	<div class="col s12">
-	        <a href="#!/" class="breadcrumb">Home</a>
-	        <a class="breadcrumb active">Sign Up</a>
-    	</div>
-    </div>
-</nav>
+<breadcrumb ng-links='[{"url":"#!/", "title":"Home"}, {"url":false, "title": "Sign Up" }]'></breadcrumb>
 <div class="row">
 	<form class="col s12" ng-submit="register()">
 		<div class="row">

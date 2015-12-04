@@ -1,5 +1,5 @@
 <div class="collection">
-	<a ng-repeat="genre in genres" ng-href="#!/comics/genre/{{genre.id}}" class="collection-item">{{genre.title}} 
+	<a ng-repeat="genre in genres track by genre.id" ng-href="#!/comics/genre/{{genre.id}}" class="collection-item">{{genre.title}} 
 		<span class="filled badge">
 			<ng-pluralize count="countComics(genre.id)"
 	                 when="{'0': 'Empty',

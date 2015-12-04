@@ -1,11 +1,4 @@
-<nav class="default-primary-color breadcrumb-small">
-    <div class="nav-wrapper margin-top-5">
-    	<div class="col s12">
-	        <a href="#!/" class="breadcrumb">Home</a>
-	        <a class="breadcrumb active">Comics</a>
-    	</div>
-    </div>
-</nav>
+<breadcrumb ng-links='[{"url":"#!/", "title":"Home"}, {"url":false, "title":"Comics"}]'></breadcrumb>
 <div class="row">
 	<div class="col s12" ng-show="results==false">
 		<div class="card-panel">

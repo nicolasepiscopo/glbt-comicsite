@@ -1,11 +1,4 @@
-<nav class="default-primary-color breadcrumb-small">
-    <div class="nav-wrapper margin-top-5">
-    	<div class="col s12">
-	        <a href="#!/" class="breadcrumb">Home</a>
-	        <a class="breadcrumb active">My Account</a>
-    	</div>
-    </div>
-</nav>
+<breadcrumb ng-links='[{"url":"#!/", "title":"Home"}, {"url":false, "title": "My Account" }]'></breadcrumb>
 <div class="row" ng-if="isAuthenticated">
 	<div class="col s12">
 		<h4>My Account Info</h4>

@@ -1,11 +1,4 @@
-<nav class="default-primary-color breadcrumb-small">
-    <div class="nav-wrapper margin-top-5">
-    	<div class="col s12">
-	        <a href="#!/" class="breadcrumb">Home</a>
-	        <a class="breadcrumb active">Advanced search</a>
-    	</div>
-    </div>
-</nav>
+<breadcrumb ng-links='[{"url":"#!/", "title":"Home"}, {"url":false, "title": "Advanced Search" }]'></breadcrumb>
 <div class="row" ng-if="isAuthenticated">
 	<form class="col s12" onsubmit="return false">
 		<div class="row">

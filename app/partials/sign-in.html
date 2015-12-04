@@ -1,6 +1,6 @@
 <div class="row" ng-controller="SecurityController">
 	<h4>Sign In</h4>
-	<form class="col s12" onsubmit="return false">
+	<form class="col s12" ng-submit="login()" onsubmit="return false">
 		<div class="row">
 			<div class="input-field col s12">
 				<input id="username" type="text" class="validate" ng-model="user.username" pattern="[a-z0-9]{5,10}" required title="5 to 10 alphanumeric characters" />
@@ -14,8 +14,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="input-field col s12">
-				<input type="submit" ng-click="login()" class="waves-effect waves-light btn" value="Sign In" />
+			<div class="input-field col s12">				
+				<submit content="Sign In"></submit>
 			</div>
 		</div>
 	</form>

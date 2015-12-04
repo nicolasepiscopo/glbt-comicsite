@@ -242,43 +242,14 @@ app
 	}
 })
 .controller('RatingController', function($scope, QualificationFactory, ComicFactory, SessionService){
+	var id = $scope.$parent.comic.id;
 	if(SessionService.get('user')){
-		var id = $scope.$parent.comic.id;
 		/* User rating shown at start */
 		var rating = QualificationFactory.find(function(q){
 			return (q.user == SessionService.get('user').id)&&(q.comic==id);
 		});
 		if(rating)
-			$scope.rating = rating.stars;	
-
-		/* Calculate global rating for one comic */
-		$scope.calculateRating = function(){		
-			var quantity = 0; 
-			var total = 0;
-
-			QualificationFactory.find().forEach(function(q){
-				if(q.comic==id){
-					quantity++;
-					total += q.stars;
-				}
-			});
-
-			$scope.communityRating = Math.ceil(total/quantity);
-
-			/* Update rating */
-			if($scope.$parent.comic.rating != $scope.communityRating){
-				$scope.$parent.comic.rating = $scope.communityRating;
-				ComicFactory.update($scope.$parent.comic);
-			}
-
-			$scope.stars = [
-				{ name : "1 Star", value : 1 },
-				{ name : "2 Stars", value : 2 },
-				{ name : "3 Stars", value : 3 },
-				{ name : "4 Stars", value : 4 },
-				{ name : "5 Stars", value : 5 },
-			];
-		};
+			$scope.rating = rating.stars;			
 
 		/* Rate a comic */
 		$scope.rate = function(){
@@ -298,10 +269,39 @@ app
 				});
 			}
 		};
-
-		/* Runs at start */
-		$scope.calculateRating();
 	}
+
+	/* Calculate global rating for one comic */
+	$scope.calculateRating = function(){		
+		var quantity = 0; 
+		var total = 0;
+
+		QualificationFactory.find().forEach(function(q){
+			if(q.comic==id){
+				quantity++;
+				total += q.stars;
+			}
+		});
+
+		$scope.communityRating = Math.ceil(total/quantity);
+
+		/* Update rating */
+		if($scope.$parent.comic.rating != $scope.communityRating){
+			$scope.$parent.comic.rating = $scope.communityRating;
+			ComicFactory.update($scope.$parent.comic);
+		}
+
+		$scope.stars = [
+			{ name : "1 Star", value : 1 },
+			{ name : "2 Stars", value : 2 },
+			{ name : "3 Stars", value : 3 },
+			{ name : "4 Stars", value : 4 },
+			{ name : "5 Stars", value : 5 },
+		];
+	};
+
+	/* Runs at start */
+	$scope.calculateRating();
 })
 .controller('SearchController', function($scope, $routeParams, ComicFactory){
 	$scope.query = $routeParams.query;

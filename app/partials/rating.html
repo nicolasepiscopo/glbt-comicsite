@@ -1,6 +1,6 @@
 <div ng-controller="RatingController">
-	<div class="col s12 m4 right input-field" ng-show="isAuthenticated">
-		<i class="material-icons" ng-repeat="star in [] | range:communityRating">star</i>
+	<div class="col s12 m4 right input-field">
+		<i class="material-icons orange-text lighten-2-text" ng-repeat="star in [] | range:communityRating">star</i>
 		<label for="rating" class="active">Community rating</label> 
 	</div>
 	<div class="col s12 m4 right input-field" ng-show="isAuthenticated">

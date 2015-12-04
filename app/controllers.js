@@ -11,8 +11,13 @@ app
 		$('#'+modalId).closeModal();
 	};
 })
-.controller('MainController', function($scope, GenreFactory){
+.controller('MainController', function($scope, GenreFactory, ComicFactory){
 	$scope.genres = GenreFactory.find();
+	$scope.countComics = function(id){
+		return ComicFactory.find().filter(function(comic){
+			return comic.genre.id==id;
+		}).length;
+	}
 })
 .controller('SignUpController', function($scope, SessionService, UserFactory, ToastService, SignUpValidator){
 	if(!SessionService.get('user')){

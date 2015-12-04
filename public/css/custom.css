@@ -43,3 +43,10 @@ a{
 #SignInModal{
 	max-height: 100%;
 }
+span.badge.filled{
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: #fff;
+    background-color: #26a69a;
+    border-radius: 2px;
+}

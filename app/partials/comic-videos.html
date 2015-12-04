@@ -1,0 +1,15 @@
+<h4>Videos</h4>
+<div ng-show="comic.videos.length">
+	<div class="card-panel" ng-repeat="video in comic.videos">
+		<div class="video-container">
+        	<iframe width="853" height="480" ng-src="{{getVideoUrl(video)}}" frameborder="0" allowfullscreen></iframe>
+    	</div>
+	</div>
+</div>
+<div ng-show="!comic.videos.length">
+	<div class="card-panel">
+      <span class="blue-text text-darken-2">
+		There isn't any video to display.
+      </span>
+    </div>
+</div>

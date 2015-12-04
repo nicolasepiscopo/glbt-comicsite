@@ -113,11 +113,14 @@ app
 		};
 		$scope.cleanForm = function(){
 			$scope.comic = {};
+			$scope.comic.videos = [];
 		}; 
 		$scope.edit = function(id){
 			$scope.comic = ComicFactory.find(function(comic){
 				return comic.id==id;
 			});
+			if(!$scope.comic.videos)
+				$scope.comic.videos = [];
 		}
 		$scope.save = function(id){
 			var comic = $scope.comic;
@@ -125,11 +128,11 @@ app
 				//Updating comic
 				comic.id = id;
 				ComicFactory.update(comic);
-				ToastService.show("Comic created!");
+				ToastService.show("Comic updated!");
 			}else{
 				//Creating comic
 				ComicFactory.add(comic);
-				ToastService.show("Comic updated!");
+				ToastService.show("Comic created!");
 			}
 			$scope.comics = ComicFactory.find();
 			$scope.comic = {};
@@ -140,6 +143,28 @@ app
 			ToastService.show("Comic removed!");
 			$scope.comics = ComicFactory.find();
 		}
+		$scope.removeVideo = function(url){
+			var whereItIs = $scope.comic.videos.indexOf(url);
+			if(whereItIs!=-1){
+				$scope.comic.videos.splice(whereItIs,1);
+				ToastService.show("Video removed!");
+			}
+		}
+		$scope.addVideo = function(url){
+			if($('#newVideo')[0].checkValidity()){
+				var repeated = $scope.comic.videos.indexOf(url);
+				if(repeated==-1){
+					$scope.comic.videos.push(url);
+					ToastService.show("Video added!");
+				}else{
+					ToastService.show("That video already exists for this comic!");
+				}
+				$scope.newVideo = "";
+			}else{
+				ToastService.show("That video URL is not valid.");
+			}
+		}
+		$scope.cleanForm();
 	}
 })
 .controller('AdministrationGenresController', function($scope, SessionService, GenreFactory, ToastService){
@@ -201,7 +226,7 @@ app
 			return 0;
 	}).slice(0,4);
 })
-.controller('ComicController', function($scope, $routeParams, CommentFactory, SessionService, VisitFactory, ComicFactory, GenreFactory){
+.controller('ComicController', function($scope, $sce, $routeParams, CommentFactory, SessionService, VisitFactory, ComicFactory, GenreFactory){
 	var id = $routeParams.id;
 
 	$scope.comic = ComicFactory.find(function(comic){
@@ -244,6 +269,10 @@ app
 			return comment.comic.id==id;
 		});
 		$scope.comment = {};
+	}
+
+	$scope.getVideoUrl = function(url){
+		return $sce.trustAsResourceUrl("//www.youtube.com/embed/" + url.split('watch?v=')[1] + "?rel=0");
 	}
 })
 .controller('RatingController', function($scope, QualificationFactory, ComicFactory, SessionService){

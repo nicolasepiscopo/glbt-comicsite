@@ -77,6 +77,32 @@
 						<label for="year" class="active">Year</label>
 					</div>
 				</div>
+				<!-- Starts video section -->
+					<div class="row">
+						<div class="input-field col s12">
+							<ul ng-show="comic.videos.length">
+								<li ng-repeat="video in comic.videos">
+									<a ng-href="{{video}}" target="_blank">{{video}}</a> | <a ng-click="removeVideo(video)">remove</a>
+								</li>
+							</ul>
+							<i ng-hide="comic.videos.length">There isn't any video.</i>
+							<label class="active">Videos</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<div class="row">
+								<div class="col s12 m10">
+									<input type="url" id="newVideo" class="validate" ng-model="newVideo" />
+								</div>
+								<div class="col s12 m2">
+									<button type="button" class="btn" ng-click="addVideo(newVideo)">add</button>
+								</div>
+							</div>
+							<label for="year" class="active">Add a video</label>
+						</div>
+					</div>
+				<!-- Ends video section -->
 				<div class="row">
 					<div class="input-field col s12">
 						<input type="submit" class="waves-effect waves-light btn" value="Save" />

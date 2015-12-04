@@ -1,0 +1,32 @@
+<h4>Comments</h4>
+<div ng-show="comments">
+	<div class="card-panel" ng-repeat="comment in comments track by comment.id">
+		<b ng-bind="comment.user.username"></b> says:
+		<blockquote ng-bind="comment.message">
+	    </blockquote>
+	    <i>Published on: {{comment.createdOn}}</i>
+	</div>
+</div>
+<div ng-show="!comments">
+	<div class="card-panel">
+      <span class="blue-text text-darken-2">
+		There isn't any comment to display.
+      </span>
+    </div>
+</div>
+<form class="card-panel" ng-submit="addComment()" ng-if="isAuthenticated">
+	<h5>Send a comment</h5>
+	<div class="row">
+		<div class="input-field col s12">
+			<textarea class="validate" ng-model="comment.message" required></textarea>
+			<label>Comment</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="input-field col s12">
+			<button type="submit" class="waves-effect waves-light btn right">
+				<i class="material-icons left">send</i> send
+			</button>
+		</div>
+	</div>
+</form>

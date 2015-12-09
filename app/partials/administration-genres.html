@@ -6,7 +6,6 @@
 		<thead>
 			<tr>
 				<th>Title</th>
-				<th>Created On</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -14,7 +13,6 @@
 		<tbody>
 			<tr ng-repeat="genre in genres track by genre.id">
 				<td ng-bind="genre.title"></td>
-				<td ng-bind="genre.createdOn"></td>
 				<td>
 					<a class="btn-floating btn-small green" ng-click="edit(genre.id); openModal('createEditGenreModal');">
 						<i class="material-icons">mode_edit</i>

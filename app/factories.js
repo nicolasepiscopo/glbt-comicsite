@@ -17,16 +17,15 @@ app
 .factory('CommentFactory', function(){
 	return new LocalRepository('Comment');
 })
-/*
+.factory('EditionFactory', function(){
+	return new LocalRepository('Edition');
+})
+.factory('NumberFactory', function(){
+	return new LocalRepository('Number');
+})
 .factory('CharacterFactory', function(){
 	return new LocalRepository('Character');
 })
 .factory('NewsFactory', function(){
 	return new LocalRepository('New');
-})
-.factory('VideoFactory', function(){
-	return new LocalRepository('Video');
-})
-.factory('GameFactory', function(){
-	return new LocalRepository('Game');
-});*/
+});

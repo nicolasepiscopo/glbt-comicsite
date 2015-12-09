@@ -16,6 +16,12 @@
 				<a class="active primary-text-color divider-color" href="#info">Info</a>
 			</li>
 			<li class="tab col s3">
+				<a href="#editions" class="primary-text-color divider-color">Editions <span ng-show="editions.length">({{editions.length}})</span></a>
+			</li>
+			<li class="tab col s3">
+				<a href="#news" class="primary-text-color divider-color">News <span ng-show="news.length">({{news.length}})</span></a>
+			</li>
+			<li class="tab col s3">
 				<a href="#comments" class="primary-text-color divider-color">Comments <span ng-show="comments.length">({{comments.length}})</span></a>
 			</li>
 			<li class="tab col s3">
@@ -33,9 +39,23 @@
 			<div class="card-panel">{{comic.genre.title}}</div>
 			<h4>Year</h4>
 			<div class="card-panel">{{comic.year}}</div>
+			<h4>Characters</h4>
+			<div class="card-panel">
+				<ul>
+					<li ng-repeat="character in characters">
+						{{character.name}}
+					</li>
+				</ul>
+			</div>		
 			<h4>Description</h4>
 			<div class="card-panel">{{comic.description}}</div>		
 		</div>
+	</div>
+	<div id="editions" class="col s12">
+		<ng-include src="'app/partials/comic-editions.html'"></ng-include>
+	</div>
+	<div id="news" class="col s12">
+		<ng-include src="'app/partials/comic-news.html'"></ng-include>
 	</div>
 	<div id="comments" class="col s12">
 		<ng-include src="'app/partials/comic-comments.html'"></ng-include>

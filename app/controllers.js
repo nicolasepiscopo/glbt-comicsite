@@ -10,12 +10,17 @@ app
 		$('#'+modalId).closeModal();
 	};
 })
-.controller('MainController', function($scope, GenreFactory, ComicFactory){
+.controller('MainController', function($scope, $sce, GenreFactory, NewsFactory, ComicFactory, CharacterFactory){
 	$scope.genres = GenreFactory.find();
-	$scope.countComics = function(id){
+	$scope.characters = CharacterFactory.find();
+	$scope.news = NewsFactory.find();
+	$scope.countComicsByGenre = function(id){
 		return ComicFactory.find().filter(function(comic){
 			return comic.genre.id==id;
 		}).length;
+	}
+	$scope.getVideoUrl = function(url){
+		return $sce.trustAsResourceUrl("//www.youtube.com/embed/" + url.split('watch?v=')[1] + "?rel=0");
 	}
 })
 .controller('SignUpController', function($scope, SessionService, UserFactory, ToastService, SignUpValidator){
@@ -230,7 +235,7 @@ app
 			return 0;
 	}).slice(0,4);
 })
-.controller('ComicController', function($scope, $sce, $routeParams, CommentFactory, SessionService, VisitFactory, ComicFactory, GenreFactory){
+.controller('ComicController', function($scope, $sce, $routeParams, EditionFactory, NumberFactory, NewsFactory, CharacterFactory, CommentFactory, SessionService, VisitFactory, ComicFactory, GenreFactory){
 	var id = $routeParams.id;
 
 	$scope.comic = ComicFactory.find(function(comic){
@@ -239,6 +244,18 @@ app
 
 	$scope.comments = CommentFactory.find().filter(function(comment){
 		return comment.comic.id==id;
+	});
+
+	$scope.characters = CharacterFactory.find().filter(function(character){
+		return character.comic.id==id;
+	});
+
+	$scope.news = NewsFactory.find().filter(function(news){
+		return news.comic.id==id;
+	});
+
+	$scope.editions = EditionFactory.find().filter(function(edition){
+		return edition.comic.id==id;
 	});
 
 	/* Add a visit if user is authenticated */
@@ -277,6 +294,12 @@ app
 
 	$scope.getVideoUrl = function(url){
 		return $sce.trustAsResourceUrl("//www.youtube.com/embed/" + url.split('watch?v=')[1] + "?rel=0");
+	}
+
+	$scope.countNumbersByEdition = function(id){
+		return NumberFactory.find().filter(function(number){
+			return number.edition.id==id;
+		}).length;
 	}
 })
 .controller('RatingController', function($scope, QualificationFactory, ComicFactory, SessionService){
@@ -362,4 +385,207 @@ app
 			return (comment.user.id==SessionService.get('user').id);
 		});
 	}
+})
+.controller('AdministrationEditionsController', function($scope, $routeParams, ToastService, ComicFactory, EditionFactory, SessionService){
+	var user = SessionService.get('user');
+	var id = $routeParams.id;
+	if(user && (user.role == "admin")){
+		$scope.editions = EditionFactory.find();
+		$scope.comics = ComicFactory.find();
+		$scope.cleanForm = function(){
+			$scope.edition = {};
+		}; 
+		$scope.edit = function(id){
+			$scope.edition = EditionFactory.find(function(edition){
+				return edition.id==id;
+			});
+		}
+		$scope.save = function(id){
+			var edition = $scope.edition;
+			if(edition.id){
+				//Updating edition
+				edition.id = id;
+				EditionFactory.update(edition);
+				ToastService.show("Edition updated!");
+			}else{
+				//Creating edition
+				EditionFactory.add(edition);
+				ToastService.show("Edition created!");
+			}
+			ToastService.show("Changes saved!");
+			$scope.editions = EditionFactory.find();
+			$scope.edition = {};
+		}
+		$scope.remove = function(id){
+			//Remove edition
+			EditionFactory.remove(id);
+			ToastService.show("Edition removed!");
+			$scope.editions = EditionFactory.find();
+		}
+	}
+})
+.controller('AdministrationNumbersController', function($scope, ToastService, NumberFactory, CharacterFactory, EditionFactory, ComicFactory, SessionService){
+	var user = SessionService.get('user');
+	if(user && (user.role == "admin")){
+		$scope.comics = ComicFactory.find();
+		$scope.numbers = NumberFactory.find();
+		$scope.editions = [];
+		$scope.currentNumber = {};
+		$scope.$watch('currentNumber.comic', function(){
+			if($scope.currentNumber.comic){
+				var comicId = $scope.currentNumber.comic.id;
+				$scope.editions = EditionFactory.find().filter(function(edition){
+					return edition.comic.id==comicId;
+				});				
+				$scope.characters = CharacterFactory.find().filter(function(character){
+					return character.comic.id==comicId;
+				}); 
+			}			
+		});
+		$scope.cleanForm = function(){
+			$scope.currentNumber = {};
+			$scope.currentNumber.characters = [];
+		}; 
+		$scope.edit = function(id){
+			$scope.currentNumber = NumberFactory.find(function(number){
+				return number.id==id;
+			});
+			var comicId = $scope.currentNumber.comic.id;
+			$scope.editions = EditionFactory.find().filter(function(edition){
+				return edition.comic.id==comicId;
+			});
+			$scope.characters = CharacterFactory.find().filter(function(character){
+				return character.comic.id==comicId;
+			});
+			if(!$scope.currentNumber.characters)
+				$scope.currentNumber.characters = [];
+		}
+		$scope.save = function(id){
+			var number = $scope.currentNumber;
+			if(number.id){
+				//Updating number
+				number.id = id;
+				NumberFactory.update(number);
+				ToastService.show("Number updated!");
+			}else{
+				//Creating number
+				NumberFactory.add(number);
+				ToastService.show("Number created!");
+			}
+			ToastService.show("Changes saved!");
+			$scope.numbers = NumberFactory.find();
+			$scope.currentNumber = {};
+		}
+		$scope.remove = function(id){
+			//Remove number
+			NumberFactory.remove(id);
+			ToastService.show("Number removed!");
+			$scope.numbers = NumberFactory.find();
+		}
+		$scope.removeCharacter = function(selectedCharacter){
+			$scope.currentNumber.characters = $scope.currentNumber.characters.filter(function(character){
+				return character.id!=selectedCharacter.id;
+			});
+			ToastService.show("Character removed!");
+		}
+		$scope.addCharacter = function(selectedCharacter){
+			$scope.currentNumber.characters = $scope.currentNumber.characters.filter(function(character){
+				return character.id!=selectedCharacter.id;
+			});
+			$scope.currentNumber.characters.push(selectedCharacter);
+			ToastService.show("Character added!");
+			$scope.newCharacter = {};
+		}
+	}
+})
+.controller('AdministrationCharactersController', function($scope, ToastService, CharacterFactory, ComicFactory, SessionService){
+	var user = SessionService.get('user');
+	if(user && (user.role == "admin")){
+		$scope.comics = ComicFactory.find();
+		$scope.characters = CharacterFactory.find();
+		$scope.character = {};
+		$scope.cleanForm = function(){
+			$scope.character = {};
+		}; 
+		$scope.edit = function(id){
+			$scope.character = CharacterFactory.find(function(character){
+				return character.id==id;
+			});
+		}
+		$scope.save = function(id){
+			var character = $scope.character;
+			if(character.id){
+				//Updating character
+				character.id = id;
+				CharacterFactory.update(character);
+				ToastService.show("Character updated!");
+			}else{
+				//Creating character
+				CharacterFactory.add(character);
+				ToastService.show("Character created!");
+			}
+			ToastService.show("Changes saved!");
+			$scope.characters = CharacterFactory.find();
+			$scope.character = {};
+		}
+		$scope.remove = function(id){
+			//Remove character
+			CharacterFactory.remove(id);
+			ToastService.show("Character removed!");
+			$scope.characters = CharacterFactory.find();
+		}
+	}
+})
+.controller('AdministrationNewsController', function($scope, ToastService, NewsFactory, ComicFactory, SessionService){
+	var user = SessionService.get('user');
+	if(user && (user.role == "admin")){
+		$scope.comics = ComicFactory.find();
+		$scope.news = NewsFactory.find();
+		$scope.currentNew = {};
+		$scope.cleanForm = function(){
+			$scope.currentNew = {};
+		}; 
+		$scope.edit = function(id){
+			$scope.currentNew = NewsFactory.find(function(character){
+				return character.id==id;
+			});
+		}
+		$scope.save = function(id){
+			var currentNew = $scope.currentNew;
+			if(currentNew.id){
+				//Updating character
+				currentNew.id = id;
+				NewsFactory.update(currentNew);
+				ToastService.show("New updated!");
+			}else{
+				//Creating character
+				NewsFactory.add(currentNew);
+				ToastService.show("New created!");
+			}
+			ToastService.show("Changes saved!");
+			$scope.news = NewsFactory.find();
+			$scope.currentNew = {};
+		}
+		$scope.remove = function(id){
+			//Remove character
+			NewsFactory.remove(id);
+			ToastService.show("New removed!");
+			$scope.news = NewsFactory.find();
+		}
+	}
+})
+.controller('NumberController', function($scope, $routeParams, EditionFactory, NumberFactory){
+	var id = $routeParams.id;
+	$scope.comic = EditionFactory.find(function(edition){
+		return edition.id==id;
+	}).comic;
+	$scope.numbers = NumberFactory.find().filter(function(number){
+		return number.edition.id == id;
+	});
+	$scope.getAvailableCopies = function(id){
+		return Math.floor((Math.random() * 100) + 1);
+	};
+	$scope.getBorrowedCopies = function(id){
+		return Math.floor((Math.random() * 100) + 1);
+	};
 });

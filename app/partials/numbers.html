@@ -1,0 +1,24 @@
+<breadcrumb ng-links='[{"url":"#!/", "title":"Home"},{"url":"{{"#!/comic/"+comic.id}}", "title": "{{comic.title}}"}, {"url":false, "title": "Numbers" }]'></breadcrumb>
+<div class="row">
+	<div ng-show="numbers" class="col s12">
+		<div class="card-panel grey lighten-5 z-depth-1" ng-repeat="number in numbers|orderBy:'number' track by number.id">
+			<div class="row valign-wrapper">
+				<div class="col s2">
+					<img ng-src="{{number.image}}" ng-alt="number.title" class="img-full-width" /> <!-- notice the "circle" class -->
+					</a>
+				</div>
+				<div class="col s10">
+					<h5>
+						N°{{number.number}} {{number.title}}
+					</h5>
+					<p>Edition: {{number.edition.title}} | Comic: {{comic.title}}</p>
+					<p>
+						<span class="green-text text-darken-2">Available copies: {{getAvailableCopies(number.id)}}</span> | 
+						<span class="red-text text-darken-2">Borrowed copies: {{getBorrowedCopies(number.id)}}</span>
+					</p>
+					<p>{{number.description}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

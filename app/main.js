@@ -23,6 +23,10 @@ app.config(function($routeProvider){
 		controller : 'ComicController',
 		templateUrl : 'app/partials/comic.html'
 	})
+	.when('/numbers/edition/:id',{
+		controller : 'NumberController',
+		templateUrl : 'app/partials/numbers.html'
+	})
 	.when('/search/:query', {
 		controller : 'SearchController',
 		templateUrl : 'app/partials/search-results.html'

@@ -52,7 +52,8 @@
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<select id="edition" ng-model="edition.comic" ng-options="comic.title for comic in comics track by comic.id" ng-init="form.type=editions[0].id" class="browser-default">
+						<select id="edition" ng-model="edition.comic" ng-options="comic.title for comic in comics track by comic.id" ng-init="form.type=editions[0].id" class="browser-default" required>
+							<option selected value="">Select a comic</option>
 						</select>
 						<label for="edition" class="active">Comic</label>
 					</div>

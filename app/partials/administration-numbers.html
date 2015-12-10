@@ -53,6 +53,7 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<select id="comic" ng-model="currentNumber.comic" required ng-options="comic.title for comic in comics track by comic.id" class="browser-default">
+							<option selected value="">Select a comic</option>
 						</select>
 						<label for="comic" class="active">Comic</label>
 					</div>
@@ -60,6 +61,7 @@
 				<div class="row" ng-show="currentNumber.comic">
 					<div class="input-field col s12">
 						<select id="edition" ng-model="currentNumber.edition" required ng-options="edition.title for edition in editions track by edition.id" class="browser-default">
+							<option selected value="">Select an edition</option>
 						</select>
 						<label for="edition" class="active">Edition</label>
 					</div>

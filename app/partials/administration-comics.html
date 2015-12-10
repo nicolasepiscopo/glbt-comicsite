@@ -65,7 +65,8 @@
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<select id="genre" ng-model="comic.genre" ng-options="genre.title for genre in genres track by genre.id" ng-init="form.type=genres[0].id" class="browser-default">
+						<select id="genre" ng-model="comic.genre" ng-options="genre.title for genre in genres track by genre.id" ng-init="form.type=genres[0].id" class="browser-default" required>
+							<option selected value="">Select a genre</option>
 						</select>
 						<label for="genre" class="active">Genre</label>
 					</div>

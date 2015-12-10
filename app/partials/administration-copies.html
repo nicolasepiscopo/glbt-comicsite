@@ -45,6 +45,7 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<select id="comic" ng-model="currentCopy.comic" required ng-options="comic.title for comic in comics track by comic.id" class="browser-default">
+							<option selected value="">Select a comic</option>
 						</select>
 						<label for="comic" class="active">Comic</label>
 					</div>
@@ -52,6 +53,7 @@
 				<div class="row" ng-show="currentCopy.comic">
 					<div class="input-field col s12">
 						<select id="edition" ng-model="currentCopy.edition" required ng-options="edition.title for edition in editions track by edition.id" class="browser-default">
+							<option selected value="">Select an edition</option>
 						</select>
 						<label for="edition" class="active">Edition</label>
 					</div>
@@ -59,6 +61,7 @@
 				<div class="row" ng-show="currentCopy.edition">
 					<div class="input-field col s12">
 						<select id="number" ng-model="currentCopy.number" required ng-options="number.number for number in numbers track by number.id" class="browser-default">
+							<option selected value="">Select a number</option>
 						</select>
 						<label for="number" class="active">Number</label>
 					</div>
@@ -66,6 +69,7 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<select id="condition" ng-model="currentCopy.condition" required class="browser-default">
+							<option selected value="">Select a condition</option>
 							<option>Excellent</option>
 							<option>Good</option>
 							<option>Normal</option>

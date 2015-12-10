@@ -683,7 +683,7 @@ app
 		var availableCopy = CopyFactory.find().filter(function(copy){
 			return ((copy.number.id == id)&&(copy.available));
 		}).length;
-		return !borrowedYet&&availableCopy&&Session.get('user');
+		return !borrowedYet&&availableCopy&&(SessionService.get('user')!=false)&&(SessionService.get('user')!=null)&&(SessionService.get('user')!=undefined);
 	}
 	if(SessionService.get('user')){
 		$scope.borrow = function(id){

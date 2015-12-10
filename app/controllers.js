@@ -498,6 +498,82 @@ app
 		}
 	}
 })
+.controller('AdministrationCopiesController', function($scope, ToastService, CopyFactory, NumberFactory, CharacterFactory, EditionFactory, ComicFactory, SessionService){
+	var user = SessionService.get('user');
+	if(user && (user.role == "admin")){
+		$scope.comics = ComicFactory.find();
+		$scope.copies = CopyFactory.find();
+		$scope.editions = [];
+		$scope.numbers = [];
+		$scope.currentCopy = {};
+		$scope.$watch('currentCopy.comic', function(){
+			if($scope.currentCopy.comic){
+				var comicId = $scope.currentCopy.comic.id;
+				$scope.editions = EditionFactory.find().filter(function(edition){
+					return edition.comic.id==comicId;
+				});	
+			}			
+		});
+		$scope.$watch('currentCopy.edition', function(){
+			if($scope.currentCopy.edition){
+				var editionId = $scope.currentCopy.edition.id;
+				$scope.numbers = NumberFactory.find().filter(function(number){
+					return number.edition.id==editionId;
+				});	
+			}			
+		});
+		$scope.cleanForm = function(){
+			$scope.currentCopy = {};
+		}; 
+		$scope.edit = function(id){
+			$scope.currentCopy = {};
+			$scope.currentCopy = CopyFactory.find(function(copy){
+				return copy.id==id;
+			});
+			var comicId = $scope.currentCopy.comic.id;
+			$scope.editions = EditionFactory.find().filter(function(edition){
+				return edition.comic.id==comicId;
+			});
+			var editionId = $scope.currentCopy.edition.id;
+			$scope.numbers = NumberFactory.find().filter(function(number){
+				return number.edition.id==editionId;
+			});
+		}
+		$scope.save = function(id){
+			var copy = JSON.parse(JSON.stringify($scope.currentCopy)); 
+			if(copy.id){
+				//Updating copy
+				copy.id = id;
+				if(copy.available){
+					copy.borrowedBy = null;
+					copy.deadline = null;
+					console.log(copy);
+				}
+				CopyFactory.update(copy);
+				ToastService.show("Copy updated!");
+			}else{
+				//Creating copy
+				var total = copy.quantity;
+				copy.quantity = 1;
+				for(var i=0;i<total;i++){
+					copy.available = true;
+					CopyFactory.add(copy);
+					copy = JSON.parse(JSON.stringify($scope.currentCopy));
+				}
+				ToastService.show("Copy added!");
+			}
+			ToastService.show("Changes saved!");
+			$scope.copies = CopyFactory.find();
+			$scope.currentCopy = {};
+		}
+		$scope.remove = function(id){
+			//Remove copy
+			CopyFactory.remove(id);
+			ToastService.show("Copy removed!");
+			$scope.copies = CopyFactory.find();
+		}
+	}
+})
 .controller('AdministrationCharactersController', function($scope, ToastService, CharacterFactory, ComicFactory, SessionService){
 	var user = SessionService.get('user');
 	if(user && (user.role == "admin")){
@@ -574,18 +650,62 @@ app
 		}
 	}
 })
-.controller('NumberController', function($scope, $routeParams, EditionFactory, NumberFactory){
+.controller('LoanController', function($scope, LoanHistoryFactory, CopyFactory, SessionService){
+	$scope.borrowedCopiesByMe = CopyFactory.find().filter(function(copy){
+		return (copy.borrowedBy)&&(copy.borrowedBy.id==SessionService.get('user').id);
+	});
+	$scope.loanHistoryByMe = LoanHistoryFactory.find().filter(function(loan){
+		return (loan.borrowedBy)&&(loan.borrowedBy.id==SessionService.get('user').id);
+	});
+})
+.controller('NumberController', function($scope, $routeParams, LoanHistoryFactory, CopyFactory, EditionFactory, NumberFactory, SessionService){
 	var id = $routeParams.id;
-	$scope.comic = EditionFactory.find(function(edition){
+	$scope.comic = EditionFactory.find().filter(function(edition){
 		return edition.id==id;
-	}).comic;
+	})[0].comic;
 	$scope.numbers = NumberFactory.find().filter(function(number){
 		return number.edition.id == id;
 	});
 	$scope.getAvailableCopies = function(id){
-		return Math.floor((Math.random() * 100) + 1);
+		return CopyFactory.find().filter(function(copy){
+			return ((copy.number.id == id)&&(copy.available));
+		});
 	};
 	$scope.getBorrowedCopies = function(id){
-		return Math.floor((Math.random() * 100) + 1);
+		return CopyFactory.find().filter(function(copy){
+			return ((copy.number.id == id)&&(!copy.available));
+		});
 	};
+	$scope.canBorrow = function(id){			
+		var borrowedYet = CopyFactory.find().filter(function(copy){
+			return ((copy.borrowedBy)&&(copy.borrowedBy.id==SessionService.get('user').id)&&(copy.number.id==id));
+		}).length;
+		var availableCopy = CopyFactory.find().filter(function(copy){
+			return ((copy.number.id == id)&&(copy.available));
+		}).length;
+		return !borrowedYet&&availableCopy&&Session.get('user');
+	}
+	if(SessionService.get('user')){
+		$scope.borrow = function(id){
+			var copy = CopyFactory.find().filter(function(copy){
+				return ((copy.number.id == id)&&(copy.available));
+			});
+			if(copy.length){
+				var copy = copy[0];
+				copy.available = false;
+				copy.borrowedBy = SessionService.get('user');
+				copy.deadline = new Date((new Date()).getTime() + (7 * 86400000));
+				CopyFactory.update(copy);
+				var history = {
+					copy : copy,
+					deadline : copy.deadline,
+					borrowedBy : copy.borrowedBy
+				};
+				LoanHistoryFactory.add(history);				
+				$scope.numbers = NumberFactory.find().filter(function(number){
+					return number.edition.id == id;
+				});
+			}
+		};
+	}
 });

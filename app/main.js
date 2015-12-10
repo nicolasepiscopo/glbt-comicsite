@@ -35,6 +35,10 @@ app.config(function($routeProvider){
 		controller : 'ComicsController',
 		templateUrl : 'app/partials/comics.html'
 	})
+	.when('/loans', {
+		controller : 'LoanController',
+		templateUrl : 'app/partials/loans.html'
+	})
 	.when('/advanced-search', {
 		templateUrl : 'app/partials/advanced-search.html'
 	})

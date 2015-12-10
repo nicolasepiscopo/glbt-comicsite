@@ -28,4 +28,10 @@ app
 })
 .factory('NewsFactory', function(){
 	return new LocalRepository('New');
+})
+.factory('CopyFactory', function(){
+	return new LocalRepository('Copy');
+})
+.factory('LoanHistoryFactory', function(){
+	return new LocalRepository('LoanHistory');
 });

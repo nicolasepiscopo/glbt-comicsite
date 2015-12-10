@@ -4,34 +4,34 @@
 		<div class="row">
 			<div class="input-field col s12">
 				<input id="username" type="text" class="validate" ng-model="user.username" pattern="[a-z0-9]{5,10}" required title="5 to 10 alphanumeric characters" />
-				<label for="username">Username</label>
+				<label for="username" class="active">Username</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<select id="role" class="validate" ng-model="user.role"  required>
+				<select id="role" class="validate browser-default" ng-model="user.role" required>
 					<option value="admin">Administrador</option>
 					<option value="user" selected>Usuario</option>
 				</select>
-				<label for="role">Role</label>
+				<label for="role" class="active">Role</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
 				<input id="email" type="email" class="validate" ng-model="user.email" />
-				<label for="email">Email</label>
+				<label for="email" class="active">Email</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
 				<input id="password" type="password" class="validate" ng-model="user.password" pattern="[a-zA-Z0-9]{7,}" required title="7 alphanumeric characters minimum" />
-				<label for="password">Password</label>
+				<label for="password" class="active">Password</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
 				<input id="cpassword" type="password" class="validate" ng-model="validation.password" pattern="[a-zA-Z0-9]{7,}" required title="7 alphanumeric characters minimum" />
-				<label for="cpassword">Confirm Password</label>
+				<label for="cpassword" class="active">Confirm Password</label>
 			</div>
 		</div>
 		<div class="row">

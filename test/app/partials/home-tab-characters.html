@@ -1,0 +1,6 @@
+<div class="form-group">
+	<input type="text" placeholder="Filter by name" ng-model="nameFilter" class="form-control">
+</div>
+<div class="collection">
+	<a ng-repeat="character in characters|filter:nameFilter track by character.id" ng-href="#!/comic/{{character.comic.id}}" class="collection-item">{{character.name}}</a>
+</div>

@@ -1,0 +1,123 @@
+<div ng-controller="AdministrationComicsController">
+	<a class="btn modal-trigger btn-floating red btn-small pull-right" ng-click="cleanForm(); openModal('createEditComicModal')"><i class="material-icons">add</i></a>
+
+	<h4>Comics list</h4>
+	<table>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Genre</th>
+				<th>Year</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="comic in comics track by comic.id">
+				<td ng-bind="comic.title"></td>
+				<td ng-bind="comic.genre.title"></td>
+				<td ng-bind="comic.year"></td>
+				<td>
+					<a class="btn-floating green btn-small" ng-click="edit(comic.id); openModal('createEditComicModal');" title="Edit">
+						<i class="material-icons">mode_edit</i>
+					</a>
+				</td>
+				<td>
+					<a class="btn-floating red btn-small" ng-click="remove(comic.id)" title="Delete">
+						<i class="material-icons">delete</i>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div id="createEditComicModal" class="modal">
+		<div class="modal-content">
+			<h4>Create / Edit</h4>
+
+			<form class="col s12" ng-submit="save(comic.id); closeModal('createEditComicModal')">
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="title" required type="text" class="validate" ng-model="comic.title"/>
+						<label for="title" ng-class="{'active' : comic.id}">Title</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s9">
+						<input id="image" required type="url" class="validate" ng-model="comic.image"/>
+						<label for="image" ng-class="{'active' : comic.id}">Image</label>
+					</div>
+					<div class="input-field col s3">
+						<img ng-hide="!comic.image" ng-src="{{comic.image}}" style="width:100%;">
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="author" required type="text" class="validate" ng-model="comic.author"/>
+						<label for="author" ng-class="{'active' : comic.id}">Author</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<textarea id="description" required class="validate" ng-model="comic.description"></textarea>
+						<label for="description" ng-class="{'active' : comic.id}">Description</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<select id="genre" ng-model="comic.genre" ng-options="genre.title for genre in genres track by genre.id" ng-init="form.type=genres[0].id" class="browser-default">
+						</select>
+						<label for="genre" class="active">Genre</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="year" type="number" min="1800" max="2015" required class="validate" ng-model="comic.year" />
+						<label for="year" ng-class="{'active' : comic.id}">Year</label>
+					</div>
+				</div>
+				<!-- Starts video section -->
+					<div class="row">
+						<div class="input-field col s12">
+							<ul ng-show="comic.videos.length">
+								<li ng-repeat="video in comic.videos">
+									<a ng-href="{{video}}" target="_blank">{{video}}</a> | <a ng-click="removeVideo(video)">remove</a>
+								</li>
+							</ul>
+							<i ng-hide="comic.videos.length">There isn't any video.</i>
+							<label class="active">Videos</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<div class="row">
+								<div class="col s12 m10">
+									<input type="url" id="newVideo" class="validate" ng-model="newVideo" />
+								</div>
+								<div class="col s12 m2">
+									<button type="button" class="btn" ng-click="addVideo(newVideo)">add</button>
+								</div>
+							</div>
+							<label for="year" class="active">Add a video</label>
+						</div>
+					</div>
+				<!-- Ends video section -->
+				<div class="row">
+					<div class="input-field col s12">
+						<submit content="Save"></submit>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('ul.tabs').tabs();
+		$('select').material_select();
+	});
+</script>

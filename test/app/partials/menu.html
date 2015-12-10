@@ -4,22 +4,22 @@
 			<a href="#!/" class="brand-logo">Comics Site</a>
 			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			<!-- Guest links -->
-			<ul class="right hide-on-med-and-down" ng-if="!isAuthenticated">
+			<ul class="right hide-on-med-and-down" ng-hide="isAuthenticated">
 				<li><a href="#!/sign-up">Sign Up</a></li>
 				<li><a data-target="SignInModal" class="modal-trigger">Sign In</a></li>
 			</ul>
-			<ul class="side-nav" id="mobile-demo" ng-if="!isAuthenticated">
+			<ul class="side-nav" id="mobile-demo" ng-hide="isAuthenticated">
 				<li><a href="#!/sign-up">Sign Up</a></li>
 				<li><a data-target="SignInModal" class="modal-trigger">Sign In</a></li>
 			</ul>
 			<!-- User links -->
-			<ul class="right hide-on-med-and-down" ng-if="isAuthenticated" ng-controller="SecurityController">
+			<ul class="right hide-on-med-and-down" ng-hide="!isAuthenticated" ng-controller="SecurityController">
 				<li><a href="#!/my-account">My Account ({{authUser.username}})</a></li>
 				<li><a href="#!/loans">Loans</a></li>
-				<li><a href="#!/administration" ng-if="isAdmin">Administration</a></li>
+				<li><a href="#!/administration" ng-hide="!isAdmin">Administration</a></li>
 				<li><a href="#!/" ng-click="logout()">Sign Out</a></li>
 			</ul>
-			<ul class="side-nav" id="mobile-demo" ng-if="isAuthenticated" ng-controller="SecurityController">
+			<ul class="side-nav" id="mobile-demo" ng-hide="!isAuthenticated" ng-controller="SecurityController">
 				<li><a href="#!/my-account">My Account ({{authUser.username}})</a></li>
 				<li><a href="#!/loans">Loans</a></li>
 				<li><a href="#!/administration" ng-hide="!isAdmin">Administration</a></li>

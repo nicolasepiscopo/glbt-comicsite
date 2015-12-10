@@ -1,0 +1,15 @@
+<nav class="default-primary-color breadcrumb-small">
+    <div class="nav-wrapper margin-top-5">
+    	<div class="col s12">
+	        <a ng-repeat="link in links"
+	        	ng-if="link.url" 
+	        	ng-href="{{link.url}}" 
+	        	class="breadcrumb" 
+	        	ng-bind="link.title"></a>
+	        <a ng-repeat="link in links"
+	        	ng-if="!link.url" 
+	        	class="breadcrumb active" 
+	        	ng-bind="link.title"></a>
+    	</div>
+    </div>
+</nav>

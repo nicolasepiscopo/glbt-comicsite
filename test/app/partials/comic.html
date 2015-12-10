@@ -1,0 +1,83 @@
+<breadcrumb ng-links='[{"url":"#!/", "title":"Home"}, {"url":"#!/comics", "title":"Comics"}, {"url":false, "title": "{{comic.title}}" }]'></breadcrumb>
+
+<div class="row">
+	<img ng-src="{{comic.image}}" class="col s12 m4 margin-top-5">
+	<div class="col s12 m8">
+		<h4>{{comic.title}}</h4>
+		<h5>By {{comic.author}}</h5>
+	</div>
+	<ng-include src="'app/partials/rating.html'"></ng-include>
+</div>
+<div class="row">
+
+	<div class="col s12">
+		<ul class="tabs">
+			<li class="tab col s3">
+				<a class="active primary-text-color divider-color" href="#info">Info</a>
+			</li>
+			<li class="tab col s3">
+				<a href="#editions" class="primary-text-color divider-color">Editions <span ng-show="editions.length">({{editions.length}})</span></a>
+			</li>
+			<li class="tab col s3">
+				<a href="#news" class="primary-text-color divider-color">News <span ng-show="news.length">({{news.length}})</span></a>
+			</li>
+			<li class="tab col s3">
+				<a href="#comments" class="primary-text-color divider-color">Comments <span ng-show="comments.length">({{comments.length}})</span></a>
+			</li>
+			<li class="tab col s3">
+				<a href="#videos" class="primary-text-color divider-color">Videos <span ng-show="comic.videos.length">({{comic.videos.length}})</span></a>
+			</li>
+			<!--
+			<li class="tab col s3">
+				<a href="#characters" class="primary-text-color divider-color">Characters</a>
+			</li>-->
+		</ul>
+	</div>
+	<div id="info" class="col s12">
+		<div class="col s12">
+			<h4>Genre</h4>
+			<div class="card-panel">{{comic.genre.title}}</div>
+			<h4>Year</h4>
+			<div class="card-panel">{{comic.year}}</div>
+			<h4>Characters</h4>
+			<div class="card-panel">
+				<ul>
+					<li ng-repeat="character in characters">
+						{{character.name}}
+					</li>
+				</ul>
+			</div>		
+			<h4>Description</h4>
+			<div class="card-panel">{{comic.description}}</div>		
+		</div>
+	</div>
+	<div id="editions" class="col s12">
+		<ng-include src="'app/partials/comic-editions.html'"></ng-include>
+	</div>
+	<div id="news" class="col s12">
+		<ng-include src="'app/partials/comic-news.html'"></ng-include>
+	</div>
+	<div id="comments" class="col s12">
+		<ng-include src="'app/partials/comic-comments.html'"></ng-include>
+	</div>
+	<div id="videos" class="col s12">
+		<ng-include src="'app/partials/comic-videos.html'"></ng-include>
+	</div>
+	<!--
+	<div id="characters" class="col s12">
+		<h4>Characters</h4>
+		<p>Characters content</p>
+	</div>
+	-->
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('ul.tabs').tabs();
+	});
+</script>
+
+
+	
+	
+</div>

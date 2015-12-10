@@ -1,0 +1,30 @@
+<breadcrumb ng-links='[{"url":"#!/", "title":"Home"}, {"url":false, "title": "My Account" }]'></breadcrumb>
+<div class="row" ng-if="isAuthenticated">
+	<div class="col s12">
+		<h4>My Account Info</h4>
+		<div class="card-panel">
+			<dl>
+				<dt>Username</dt><dd ng-bind="authUser.username"></dd>
+				<dt>Email</dt><dd ng-bind="authUser.email"></dd>
+				<dt>Role</dt><dd ng-bind="authUser.role"></dd>
+				<dt>Date registered</dt><dd ng-bind="authUser.createdOn"></dd>
+			</dl>
+		</div>
+		<h4>My Comments</h4>
+		<div ng-show="comments">
+			<div class="card-panel" ng-repeat="comment in comments track by comment.id">
+				<b ng-bind="comment.user.username"></b> says on <a ng-href="#!/comic/{{comment.comic.id}}">{{comment.comic.title}}</a>
+				<blockquote ng-bind="comment.message">
+			    </blockquote>
+			    <i>Published on: {{comment.createdOn}}</i>
+			</div>
+		</div>
+		<div ng-hide="comments.length">
+			<div class="card-panel">
+		      <span class="blue-text text-darken-2">
+				There isn't any comment to display.
+		      </span>
+		    </div>
+		</div>
+	</div>
+</div>

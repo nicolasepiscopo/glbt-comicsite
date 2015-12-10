@@ -1,0 +1,49 @@
+<breadcrumb ng-links='[{"url":"#!/", "title":"Home"},{"url":false, "title": "Loans" }]'></breadcrumb>
+
+<div class="row" ng-if="authUser">
+	<div class="col s12">
+		<table class="striped">
+			<thead>
+				<tr>
+					<th>Ref.Id</th>
+					<th>Comic</th>
+					<th>Edition</th>
+					<th>Number</th>
+					<th>Borrow Date</th>
+					<th>Deadline</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="loan in borrowedCopiesByMe|orderBy:'-deadline' track by loan.id">
+					<td>{{loan.id}}</td>
+					<td>{{loan.comic.title}}</td>
+					<td>{{loan.edition.title}}</td>
+					<td>{{loan.number.number}}</td>
+					<td>{{loan.createdOn|date:'medium'}}</td>
+					<td class="red-text text-darken-2">{{loan.deadline|date:'medium'}}</td>
+				</tr>
+				<tr ng-repeat="loan in loanHistoryByMe|orderBy:'-deadline' track by loan.id">
+					<td>-</td>
+					<td>{{loan.copy.comic.title}}</td>
+					<td>{{loan.copy.edition.title}}</td>
+					<td>{{loan.copy.number.number}}</td>
+					<td>{{loan.createdOn|date:'medium'}}</td>
+					<td>{{loan.deadline|date:'medium'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div ng-hide="loanHistoryByMe.length || borrowedCopiesByMe.length" class="col s12">
+		<div class="card-panel">
+	      <span class="blue-text text-darken-2">
+			There isn't any loan to display.
+	      </span>
+	    </div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('ul.tabs').tabs();
+	});
+</script>

@@ -1,7 +1,18 @@
 <breadcrumb ng-links='[{"url":"#!/", "title":"Home"}, {"url":false, "title": "Search Results" }]'></breadcrumb>
 <div class="row">
-	<div class="col s6 form-group">
+	<div class="col s8 form-group">
 		<input id="searchInput" autocomplete="off" placeholder="Search for a comic" type="text" ng-model="query" class="form-control">
+	</div>
+	<div class="col s4 form-group">
+		<select id="orderCriteria" ng-model="orderCriteria" class="form-controlclass browser-default">
+			<option value="">Order by</option>
+			<option value="title">Title Asc</option>
+			<option value="-title">Title Desc</option>
+			<option value="rating">Rating Asc</option>
+			<option value="-rating">Rating Desc</option>
+			<option value="visits">Visits Asc</option>
+			<option value="-visits">Visits Desc</option>
+		</select>
 	</div>
 	<div class="col s12" ng-show="results==false">
 		<div class="card-panel">
@@ -11,7 +22,7 @@
 	    </div>
 	</div>
 	<div ng-show="results" class="col s12">
-		<div class="card-panel grey lighten-5 z-depth-1" ng-repeat="result in results">
+		<div class="card-panel grey lighten-5 z-depth-1" ng-repeat="result in results|orderBy:orderCriteria track by result.id">
 			<div class="row valign-wrapper">
 				<div class="col s2">
 					<img ng-src="{{result.image}}" ng-alt="result.title" class="circle responsive-img"> <!-- notice the "circle" class -->

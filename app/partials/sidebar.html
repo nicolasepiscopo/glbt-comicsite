@@ -1,8 +1,8 @@
 <div class="col s12 m4" id="sidebar" ng-controller="SidebarController">
-	<form ng-submit="search()">
+	<form ng-submit="search()" ng-hide="inSearchPage()">
         <div class="input-field">
     		<i class="material-icons prefix">search_circle</i>
-    		<input id="icon_prefix" type="text" ng-model="query" class="validate">
+    		<input id="icon_prefix" type="text" autocomplete="off" ng-model="query" class="validate">
     		<label for="icon_prefix">Search for a comic</label>
         </div>
     </form>

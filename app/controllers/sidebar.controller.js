@@ -2,11 +2,16 @@
 	app.controller('SidebarController', controller);
 	function controller($scope, $location, ComicFactory){
 		$scope.search = function(){
-			$location.path("/search/"+$scope.query);
+			var query = $scope.query;
+			$scope.query = "";
+			$location.path("/search/"+query);
 		};
 		$scope.showComic = function(id){
 			$location.path("/comic/"+id);
-		}
+		};
+		$scope.inSearchPage = function(){
+			return $location.url().indexOf("search")>-1;
+		};
 		$scope.topRated = ComicFactory.find().sort(function(oneComic, anotherComic){
 			if(oneComic.rating>anotherComic.rating)
 				return -1;

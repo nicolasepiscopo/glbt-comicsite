@@ -1,5 +1,8 @@
 <breadcrumb ng-links='[{"url":"#!/", "title":"Home"}, {"url":false, "title": "Search Results" }]'></breadcrumb>
 <div class="row">
+	<div class="col s6 form-group">
+		<input id="searchInput" autocomplete="off" placeholder="Search for a comic" type="text" ng-model="query" class="form-control">
+	</div>
 	<div class="col s12" ng-show="results==false">
 		<div class="card-panel">
 	      <span class="blue-text text-darken-2">
@@ -24,3 +27,8 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#searchInput').focus();
+});
+</script>

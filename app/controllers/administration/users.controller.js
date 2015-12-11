@@ -1,7 +1,7 @@
 (function(){
 	app.controller('AdministrationUsersController', controller); 
-	function controller($scope, SessionService, UserFactory, ToastService){
-		if(SessionService.get('user')&&(SessionService.get('user').role=="admin")){
+	function controller($scope, SessionService, SecurityService, UserFactory, ToastService){
+		if(SecurityService.isAdministrator()){
 			$scope.users = UserFactory.find();
 			$scope.cleanForm = function(){
 				$scope.user = {};

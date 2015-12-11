@@ -1,7 +1,7 @@
 (function(){
 	app.controller('NumberController', controller);
 	
-	function controller($scope, $routeParams, LoanHistoryFactory, CopyFactory, EditionFactory, NumberFactory, SessionService){
+	function controller($scope, $routeParams, SecurityService, LoanHistoryFactory, CopyFactory, EditionFactory, NumberFactory, SessionService){
 		var id = $routeParams.id;
 		$scope.comic = EditionFactory.find().filter(function(edition){
 			return edition.id==id;
@@ -28,7 +28,7 @@
 			}).length;
 			return !borrowedYet&&availableCopy&&(SessionService.get('user')!=false)&&(SessionService.get('user')!=null)&&(SessionService.get('user')!=undefined);
 		}
-		if(SessionService.get('user')){
+		if(SecurityService.isUser()){
 			$scope.borrow = function(id){
 				var copy = CopyFactory.find().filter(function(copy){
 					return ((copy.number.id == id)&&(copy.available));

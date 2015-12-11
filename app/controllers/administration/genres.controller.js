@@ -1,7 +1,7 @@
 (function(){
 	app.controller('AdministrationGenresController', controller); 
-	function controller($scope, SessionService, GenreFactory, ToastService){
-		if(SessionService.get('user')&&(SessionService.get('user').role=="admin")){
+	function controller($scope, SessionService, SecurityService, GenreFactory, ToastService){
+		if(SecurityService.isAdministrator()){
 			$scope.genres = GenreFactory.find();
 			$scope.cleanForm = function(){
 				$scope.genre = {};

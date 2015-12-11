@@ -1,7 +1,7 @@
 (function(){
 	app.controller('AdministrationComicsController', controller);
-	function controller($scope, SessionService, ComicFactory, GenreFactory, ToastService){
-		if(SessionService.get('user')&&(SessionService.get('user').role=="admin")){
+	function controller($scope, SessionService, SecurityService, ComicFactory, GenreFactory, ToastService){
+		if(SecurityService.isAdministrator()){
 			$scope.comics = ComicFactory.find();
 			$scope.genres = GenreFactory.find();
 			$scope.getGenre = function(id){

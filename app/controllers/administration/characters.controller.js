@@ -1,8 +1,7 @@
 (function(){
 	app.controller('AdministrationCharactersController', controller);
-	function controller($scope, ToastService, CharacterFactory, ComicFactory, SessionService){
-		var user = SessionService.get('user');
-		if(user && (user.role == "admin")){
+	function controller($scope, SecurityService, ToastService, CharacterFactory, ComicFactory, SessionService){
+		if(SecurityService.isAdministrator()){
 			$scope.comics = ComicFactory.find();
 			$scope.characters = CharacterFactory.find();
 			$scope.character = {};

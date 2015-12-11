@@ -1,8 +1,7 @@
 (function(){
 	app.controller('AdministrationCopiesController', controller); 
-	function controller($scope, ToastService, CopyFactory, NumberFactory, CharacterFactory, EditionFactory, ComicFactory, SessionService){
-		var user = SessionService.get('user');
-		if(user && (user.role == "admin")){
+	function controller($scope, ToastService, SecurityService, CopyFactory, NumberFactory, CharacterFactory, EditionFactory, ComicFactory, SessionService){
+		if(SecurityService.isAdministrator()){
 			$scope.comics = ComicFactory.find();
 			$scope.copies = CopyFactory.find();
 			$scope.editions = [];

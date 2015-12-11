@@ -22,6 +22,14 @@
 					<td>{{loan.createdOn|date:'medium'}}</td>
 					<td class="red-text text-darken-2">{{loan.deadline|date:'medium'}}</td>
 				</tr>
+				<tr>
+					<th>Loan History</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
 				<tr ng-repeat="loan in loanHistoryByMe|orderBy:'-deadline' track by loan.id">
 					<td>-</td>
 					<td>{{loan.copy.comic.title}}</td>

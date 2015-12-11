@@ -1,7 +1,7 @@
 (function(){
 	app.controller('SecurityController', controller);
-	function controller($scope, $window, $location, UserFactory, ToastService, SignInValidator,SessionService){
-		if(!SessionService.get('user')){
+	function controller($scope, $window, $location, SecurityService, UserFactory, ToastService, SignInValidator,SessionService){
+		if(!SecurityService.isUser()){
 			$scope.login = function(){
 				var validation = SignInValidator.runValidation($scope);
 				if(validation.isValid){
@@ -23,8 +23,7 @@
 					ToastService.show(msg);
 				});
 			}
-		}
-		if(SessionService.get('user')){
+		}else{
 			$scope.logout = function(){
 				SessionService.set('user', false);
 				$scope.$parent.authUser = false;

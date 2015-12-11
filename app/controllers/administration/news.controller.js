@@ -1,8 +1,7 @@
 (function(){
 	app.controller('AdministrationNewsController', controller); 
-	function controller($scope, ToastService, NewsFactory, ComicFactory, SessionService){
-		var user = SessionService.get('user');
-		if(user && (user.role == "admin")){
+	function controller($scope, ToastService, SecurityService, NewsFactory, ComicFactory, SessionService){
+		if(SecurityService.isAdministrator()){
 			$scope.comics = ComicFactory.find();
 			$scope.news = NewsFactory.find();
 			$scope.currentNew = {};

@@ -1,8 +1,8 @@
 (function(){
 	app.controller('RatingController', controller);
-	function controller($scope, QualificationFactory, ComicFactory, SessionService){
+	function controller($scope, SecurityService, QualificationFactory, ComicFactory, SessionService){
 		var id = $scope.$parent.comic.id;
-		if(SessionService.get('user')){
+		if(SecurityService.isUser()){
 			/* User rating shown at start */
 			var rating = QualificationFactory.find(function(q){
 				return (q.user == SessionService.get('user').id)&&(q.comic==id);

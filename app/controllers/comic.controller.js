@@ -2,7 +2,7 @@
 
 	app.controller('ComicController', controller);
 
-	function controller($scope, $sce, $routeParams, EditionFactory, NumberFactory, NewsFactory, CharacterFactory, CommentFactory, SessionService, VisitFactory, ComicFactory, GenreFactory){
+	function controller($scope, $sce, $routeParams, SecurityService, EditionFactory, NumberFactory, NewsFactory, CharacterFactory, CommentFactory, SessionService, VisitFactory, ComicFactory, GenreFactory){
 		var id = $routeParams.id;
 
 		$scope.comic = ComicFactory.find(function(comic){
@@ -26,7 +26,7 @@
 		});
 
 		/* Add a visit if user is authenticated */
-		if(SessionService.get('user')){
+		if(SecurityService.isUser()){
 			var visited = VisitFactory.find(function(v){
 				return (v.user==SessionService.get('user').id)&&(v.comic==id);
 			});

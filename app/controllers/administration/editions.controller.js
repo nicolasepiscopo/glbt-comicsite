@@ -1,9 +1,8 @@
 (function(){
 	app.controller('AdministrationEditionsController', controller);
-	function controller($scope, $routeParams, ToastService, ComicFactory, EditionFactory, SessionService){
-		var user = SessionService.get('user');
+	function controller($scope, $routeParams, SecurityService, ToastService, ComicFactory, EditionFactory, SessionService){
 		var id = $routeParams.id;
-		if(user && (user.role == "admin")){
+		if(SecurityService.isAdministrator()){
 			$scope.editions = EditionFactory.find();
 			$scope.comics = ComicFactory.find();
 			$scope.cleanForm = function(){

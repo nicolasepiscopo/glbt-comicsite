@@ -55,6 +55,15 @@
 					</div>
 				</div>
 				<div class="row">
+					<div class="input-field col s9">
+						<input id="image" ng-model="character.image" type="url" class="validate" required />
+						<label for="image" ng-class="{'active' : character.id}">Image</label>
+					</div>
+					<div class="input-field col s3">
+						<img ng-show="character.image" ng-src="{{character.image}}" style="width:100%;">
+					</div>
+				</div>
+				<div class="row">
 					<div class="input-field col s12">
 						<submit content="Save"></submit>
 					</div>

@@ -27,6 +27,7 @@
 						stars : $scope.rating
 					});
 				}
+				$scope.$parent.$parent.$parent.justRated++;
 			};
 		}
 

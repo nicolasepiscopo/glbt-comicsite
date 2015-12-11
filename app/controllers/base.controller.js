@@ -14,7 +14,7 @@
 		$scope.justRated = 0;
 		$scope.$watch('justRated', function(newVal, oldVal){
 		    if(newVal!=oldVal)
-		        $scope.$broadcast('justRated',{"val":newVal})
+		        $scope.$broadcast('justRated',{"val":newVal});
 		});
 	}
 })();
